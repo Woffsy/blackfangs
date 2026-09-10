@@ -212,13 +212,13 @@ body {
 
 .member-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     image-rendering: pixelated;
 }
 
 .member-card {
-    width: 280px;
+    width: 320px;
     height: 80px;
     padding: 10px;
     background: rgba(22, 13, 36, 0.85);
