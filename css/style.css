@@ -277,3 +277,56 @@ body {
     padding: 10px;
     margin-top: -30px;
 }
+
+.login-page {
+    position: relative;
+    min-height: calc(100vh - 70px);
+    padding: 70px 40px;
+    text-align: center;
+    background-image: url("../assets/images/login.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: 1;
+}
+
+.login-page::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.login-button {
+    display: inline-block;
+    padding: 14px 30px;
+    background: #5865F2;
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    border-radius: 8px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.login-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.login-page h1 {
+    font-size: 48px;
+    padding: 20px;
+}
+
+.login-page p {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 24px;
+    padding: 40px;
+}

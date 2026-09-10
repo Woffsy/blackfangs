@@ -29,7 +29,6 @@ async function loadMembers() {
 
             for (const member of Object.values(members)) {
                 totalMembers++;
-
                 if (member.online) {
                     onlineMembers++;
                 }
@@ -39,6 +38,7 @@ async function loadMembers() {
         const onlineCount = document.createElement("h2");
         onlineCount.textContent = `Online Members: ${onlineMembers}/${totalMembers}`;
         onlineCount.className = "online-count";
+        
         container.appendChild(onlineCount);
 
         for (const [rankId, rankName] of ranks) {
