@@ -6,6 +6,8 @@ const session = require("express-session"); //this is for user-sessions
 const passport = require("passport"); //this is a general authentication framework
 const DiscordStrategy = require("passport-discord").Strategy; //this is to make discord login actually work
 
+const { checkUserRole } = require('./roleChecker'); //role checking bot code
+
 
 const app = express(); // this is our server
 const PORT = 3000; // number for the funsies
@@ -31,10 +33,15 @@ passport.use(new DiscordStrategy({
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
     callbackURL: process.env.DISCORD_CALLBACK_URL,
     scope: ["identify"] //this is to get the discord user id
-}, (accessToken, refreshToken, profile, done) => {
+}, async (accessToken, refreshToken, profile, done) => {
     //contains id, username, discriminator, avatar
     //make the database lookup here later
-    return done(null, profile)
+    try {
+        const discord_ID = await checkUserRole(profile.id);
+        return done(null, profile, discord_ID);
+    } catch (err) {
+        return done(err);
+    }
 }));
 
 app.get("/api/guild", async (req, res) => {
@@ -50,7 +57,12 @@ app.get("/auth/discord", passport.authenticate("discord"))
 app.get("/auth/discord/callback", 
     passport.authenticate("discord", { failureRedirect: "/" }),
     (req, res) => {
-        res.redirect("/dashboard") //succesful login landing page
+        console.log(req.authInfo.hasRole)
+        if (req.authInfo.hasRole) {
+            res.redirect("/pages/logged-in.html") //succesful login landing page
+        } else {
+            res.redirect("/")
+        }
     }
 );
 
