@@ -262,3 +262,18 @@ body {
     grid-column: 1;
     margin: 0;
 }
+
+.member-online {
+    color: #09BA00;
+}
+
+.member-offline {
+    color: #999;
+}
+
+.online-count {
+    font-size: 38px;
+    color: #0AFF00;
+    padding: 10px;
+    margin-top: -30px;
+}

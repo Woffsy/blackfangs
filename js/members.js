@@ -3,21 +3,43 @@ async function loadMembers() {
         const response = await fetch("/api/guild");
 
         if (!response.ok) {
-            throw new Error("API returned ${response.status}");
+            throw new Error(`API returned ${response.status}`);
         }
 
         const guild = await response.json();
         const container = document.getElementById("members-container");
         const ranks = [
             ["owner", "Owner"],
-            ["chief", "Chiefs"],
-            ["strategist", "Strategists"],
-            ["captain", "Captains"],
-            ["recruiter", "Recruiters"],
-            ["recruit", "Recruits"]
+            ["chief", "Harbinger"],
+            ["strategist", "Sentinel"],
+            ["captain", "Beast Hunter"],
+            ["recruiter", "Luminous"],
+            ["recruit", "Moonlit"]
         ];
 
         container.innerHTML = "";
+
+        let totalMembers = 0;
+        let onlineMembers = 0;
+
+        for (const [rankId, rankName] of ranks) {
+            const members = guild.members[rankId];
+
+            if (!members) continue;
+
+            for (const member of Object.values(members)) {
+                totalMembers++;
+
+                if (member.online) {
+                    onlineMembers++;
+                }
+            }
+        }
+
+        const onlineCount = document.createElement("h2");
+        onlineCount.textContent = `Online Members: ${onlineMembers}/${totalMembers}`;
+        onlineCount.className = "online-count";
+        container.appendChild(onlineCount);
 
         for (const [rankId, rankName] of ranks) {
             const members = guild.members[rankId];
@@ -44,7 +66,7 @@ async function loadMembers() {
                 const uuid = member.uuid;
                 const head = document.createElement("img");
                 head.src = "https://render.crafty.gg/2d/head/" + username.toLowerCase() + "?size=100";
-                head.alt = "${username}'s head";
+                head.alt = `${username}'s head`;
                 head.className = "member-head";
                 
                 const rank = document.createElement("p");
@@ -54,6 +76,7 @@ async function loadMembers() {
 
                 const name = document.createElement("h3");
                 name.textContent = username;
+                name.className = member.online ? "member-online" : "member-offline";
 
                 card.appendChild(name);
                 card.appendChild(rank);
