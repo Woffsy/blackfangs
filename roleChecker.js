@@ -24,8 +24,8 @@ function ensureReady() {
 }
 
 
-const GUILD_ID = '1510326639521960006'; //random bot testing discord server i made
-const ROLE_ID = '1515763458526937168'; //temporary role-id aswell
+const GUILD_ID = '962855308932317204'; //Black Fangs discord
+const ROLE_ID = '1168775281117499485'; //Black Fangs Member role BFS discord
 
 async function checkUserRole(userId) {
     if (!/^\d{17,20}$/.test(userId)) {
