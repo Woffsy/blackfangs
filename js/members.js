@@ -10,11 +10,11 @@ async function loadMembers() {
         const container = document.getElementById("members-container");
         const ranks = [
             ["owner", "Owner"],
-            ["chief", "Harbinger"],
-            ["strategist", "Sentinel"],
-            ["captain", "Beast Hunter"],
-            ["recruiter", "Luminous"],
-            ["recruit", "Moonlit"]
+            ["chief", "Harbinger (Chief)"],
+            ["strategist", "Sentinel (Strategist)"],
+            ["captain", "Beast Hunter (Captain)"],
+            ["recruiter", "Luminous (Recruiter)"],
+            ["recruit", "Moonlit (Recruit)"]
         ];
 
         container.innerHTML = "";
@@ -38,7 +38,7 @@ async function loadMembers() {
         const onlineCount = document.createElement("h2");
         onlineCount.textContent = `Online Members: ${onlineMembers}/${totalMembers}`;
         onlineCount.className = "online-count";
-        
+
         container.appendChild(onlineCount);
 
         for (const [rankId, rankName] of ranks) {
