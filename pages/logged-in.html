@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Dashboard</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
     </head>
     <body>
         <nav class="navbar">
@@ -22,9 +23,23 @@
                 <a href="login.html">Log In</a>
             </div>
         </nav>
-
-        <a href="/logout">Log out button</a>
+        <main class="dashboard">
+            <div class="welcome-card">
+                <h1 id="username">Loading...</h1>
+                <h2>You are logged in as Black Fangs Member</h2>
+            </div>
+            <a class="logout-button" href="/logout">Log Out</a>
+        </main>
         <script src="../js/auth-status.js"></script>
         <script src="../js/hamburger.js"></script>
+        <script>
+            fetch("/api/me")
+                .then(response => response.json())
+                .then(user => {
+                    if (user.loggedIn) {
+                        document.getElementById("username").textContent = "Welcome, " + user.username;
+                    }
+                });
+        </script>
     </body>
 </html>
