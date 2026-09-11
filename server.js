@@ -76,6 +76,6 @@ app.get('/logout', (req, res) => {
 });
 
 // this bit turns the server on
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log("Website do be running at http://localhost:3000");
-})
+});
