@@ -59,6 +59,16 @@ app.get("/api/guild", async (req, res) => {
     res.json(guild); // this gives that js object to the browser
 });
 
+app.get("/api/player/:username", async (req, res) => {
+    const username = encodeURIComponent(req.params.username);
+    
+    const response = await fetch(`https://api.wynncraft.com/v3/player/${username}`)
+
+    const player = await response.json();
+
+    res.json(player);
+});
+
 app.get("/auth/discord", passport.authenticate("discord"))
 
 app.get("/auth/discord/callback", 
