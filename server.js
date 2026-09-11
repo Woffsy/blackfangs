@@ -6,7 +6,8 @@ const session = require("express-session"); //this is for user-sessions
 const passport = require("passport"); //this is a general authentication framework
 const DiscordStrategy = require("passport-discord").Strategy; //this is to make discord login actually work
 
-const { checkUserRole } = require('./roleChecker'); //role checking bot code
+const { checkUserRole } = require("./roleChecker"); //role checking bot code
+const { ensureMember } = require("./ensureMember"); 
 
 
 const app = express(); // this is our server
@@ -22,6 +23,12 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+//makes it so the logged-in.html doesnt get sent before a user is logged in
+app.get("/pages/logged-in.html", ensureMember, (req, res) => {
+    res.sendFile(__dirname+"/pages/logged-in.html");
+});
+
 app.use(express.static("."));
 
 //give passport the strategy to use
@@ -35,10 +42,10 @@ passport.use(new DiscordStrategy({
     scope: ["identify"] //this is to get the discord user id
 }, async (accessToken, refreshToken, profile, done) => {
     //contains id, username, discriminator, avatar
-    //make the database lookup here later
     try {
         const discord_ID = await checkUserRole(profile.id);
-        return done(null, profile, discord_ID);
+        profile.hasRole = discord_ID.hasRole;
+        return done(null, profile);
     } catch (err) {
         return done(err);
     }
@@ -57,8 +64,8 @@ app.get("/auth/discord", passport.authenticate("discord"))
 app.get("/auth/discord/callback", 
     passport.authenticate("discord", { failureRedirect: "/" }),
     (req, res) => {
-        console.log(req.authInfo.hasRole)
-        if (req.authInfo.hasRole) {
+        console.log(req.user.hasRole)
+        if (req.user.hasRole) {
             res.redirect("/pages/logged-in.html") //succesful login landing page
         } else {
             res.redirect("/")
