@@ -23,9 +23,10 @@ body {
     align-items: center;
     justify-content: flex-start;
     padding: 0 40px;
-    background: #6E2B95;
+    background: rgba(110, 43, 149, 0.85);
     position: relative;
     z-index: 10;
+    border-bottom: 2px solid white;
 }
 
 .nav-logo img {
@@ -100,8 +101,9 @@ body {
         width: 100%;
         margin-left: 0;
         flex-direction: column;
+        padding-bottom: 15px;
         gap: 0;
-        background: #6E2B95;
+        background: rgba(110, 43, 149, 0.85);
     }
 
     .nav-links.open {
