@@ -1,0 +1,160 @@
+.members-page {
+    position: relative;
+    min-height: calc(100vh - 70px);
+    padding: 70px 40px;
+    text-align: center;
+    background-image: url("../assets/images/members.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: 1;
+}
+
+.members-page::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.members-page h1 {
+    font-size: 56px;
+    margin-bottom: 60px;
+}
+
+.member-rank {
+    max-width: 1100px;
+    margin: 0 auto 60px;
+}
+
+.member-rank h2 {
+    font-size: 38px;
+    margin-bottom: 25px;
+}
+
+.member-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    image-rendering: pixelated;
+}
+
+.member-card {
+    width: 320px;
+    height: 80px;
+    padding: 10px;
+    background: rgba(22, 13, 36, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 15px;
+    align-items: center;
+    text-align: left;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.member-card:hover {
+    transform: translateY(-2px);
+    background: rgba(110, 43, 149, 0.85);
+}
+
+.member-card h3 {
+    font-size: 28px;
+    margin-bottom: 0;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.member-stars {
+    font-size: 24px;
+    color: #FFD000;
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+    letter-spacing: 2px;
+}
+
+.member-head {
+    width: 50px;
+    height: 50px;
+    image-rendering: pixelated;
+    grid-row: 1 / 3;
+    grid-column: 1;
+    margin: 0;
+}
+
+.member-online {
+    color: #09BA00;
+}
+
+.member-offline {
+    color: #999;
+}
+
+.online-count {
+    font-size: 38px;
+    color: #0AFF00;
+    padding: 10px;
+    margin-top: -30px;
+}
+
+@media (max-width: 1100px) {
+    .members-page {
+        padding: 50px 25px;
+    }
+
+    .members-page h1 {
+        font-size: 48px;
+        margin-bottom: 45px;
+    }
+
+    .member-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .member-card {
+        width: 100%;
+        max-width: 260px;
+        height: 70px;
+        grid-template-columns: 60px 1fr;
+        column-gap: 10px;
+        justify-self: center;
+    }
+
+    .member-card h3 {
+        font-size: 22px;
+    }
+
+    .member-stars {
+        font-size: 19px;
+        letter-spacing: 1px;
+    }
+
+    .member-rank h2 {
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 800px) {
+    .members-page {
+        padding: 25px 25px;
+    }
+
+    .member-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .member-card h3 {
+        font-size: 18px;
+    }
+}
+
