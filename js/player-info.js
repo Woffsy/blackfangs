@@ -1,6 +1,7 @@
 const usernameInput = document.getElementById("username");
 const searchButton = document.getElementById("search-button");
 const playerResult = document.getElementById("player-result");
+const searchForm = document.getElementById("search-form");
 
 // please forgive me for this
 const colours = {
@@ -138,3 +139,12 @@ async function searchPlayer() {
 }
 
 searchButton.addEventListener("click", searchPlayer);
+
+searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const username = usernameInput.value.trim();
+    if (username === "") {
+        return;
+    }
+    searchPlayer(username);
+});
