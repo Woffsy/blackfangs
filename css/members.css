@@ -1,25 +1,28 @@
+body {
+    position: relative;
+    background-image: url("../assets/images/members.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    &::after {
+        content: "";
+        background-color: black;
+        position: absolute;
+        inset: 0;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
 .members-page {
     position: relative;
     min-height: calc(100vh - 70px);
     padding: 70px 40px;
     text-align: center;
-    background-image: url("../assets/images/members.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     z-index: 1;
-}
-
-.members-page::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: -1;
-    pointer-events: none;
 }
 
 .members-page h1 {
@@ -39,20 +42,19 @@
 
 .member-grid {
     display: grid;
+    width: 100%;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     image-rendering: pixelated;
 }
 
 .member-card {
-    width: 320px;
-    height: 80px;
     padding: 10px;
     background: rgba(22, 13, 36, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 10px;
     display: grid;
-    grid-template-columns: 80px 1fr;
+    grid-template-columns: 50px 1fr;
     grid-template-rows: 1fr 1fr;
     column-gap: 15px;
     align-items: center;
@@ -120,14 +122,14 @@
         gap: 15px;
     }
 
-    .member-card {
+    /* .member-card {
         width: 100%;
         max-width: 260px;
         height: 70px;
         grid-template-columns: 60px 1fr;
         column-gap: 10px;
         justify-self: center;
-    }
+    } */
 
     .member-card h3 {
         font-size: 22px;
@@ -151,6 +153,11 @@
     .member-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
+    }
+
+    .member-card {
+        display: flex;
+        flex-direction: column-reverse;
     }
 
     .member-card h3 {

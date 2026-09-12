@@ -1,25 +1,28 @@
+body {
+    position: relative;
+    background-image: url("../assets/images/guild-dashboard.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    &::after {
+        content: "";
+        background-color: black;
+        position: absolute;
+        inset: 0;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
 .dashboard {
     position: relative;
     min-height: calc(100vh - 70px);
     padding: 70px 40px;
     text-align: center;
-    background-image: url("../assets/images/guild-dashboard.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     z-index: 1;
-}
-
-.dashboard::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(53, 0, 48, 0.45);
-    z-index: -1;
-    pointer-events: none;
 }
 
 .welcome-card {
