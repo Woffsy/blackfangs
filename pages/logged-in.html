@@ -37,7 +37,7 @@
                 .then(response => response.json())
                 .then(user => {
                     if (user.loggedIn) {
-                        document.getElementById("username").textContent = "Welcome, " + user.username;
+                        document.getElementById("username").textContent = "Welcome, " + user.serverDisplayName;
                     }
                 });
         </script>

@@ -41,7 +41,9 @@ async function checkUserRole(userId) {
         return {
             found: true,
             hasRole: member.roles.cache.has(ROLE_ID),
-            displayName: member.user.tag,
+            displayName: member.user.displayName,
+            nickname: member.nickname,
+            serverDisplayName: member.displayName,
         };
     } catch (error) {
         if (error.code === 10007) {

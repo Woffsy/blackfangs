@@ -45,6 +45,9 @@ passport.use(new DiscordStrategy({
     try {
         const discord_ID = await checkUserRole(profile.id);
         profile.hasRole = discord_ID.hasRole;
+        profile.displayName = discord_ID.displayName;
+        profile.nickname = discord_ID.nickname;
+        profile.serverDisplayName = discord_ID.serverDisplayName;
         return done(null, profile);
     } catch (err) {
         return done(err);
@@ -82,7 +85,6 @@ app.get("/auth/discord", passport.authenticate("discord"))
 app.get("/auth/discord/callback", 
     passport.authenticate("discord", { failureRedirect: "/" }),
     (req, res) => {
-        console.log(req.user.hasRole)
         if (req.user.hasRole) {
             res.redirect("/pages/logged-in.html") //succesful login landing page
         } else {
@@ -102,7 +104,7 @@ app.get('/logout', (req, res) => {
 
 app.get("/api/me", (req, res) => {
     if (req.isAuthenticated()) {
-        res.json({ loggedIn: true, username: req.user.username, hasRole: req.user.hasRole });
+        res.json({ loggedIn: true, username: req.user.username, hasRole: req.user.hasRole, serverDisplayName: req.user.serverDisplayName });
     } else {
         res.json({ loggedIn: false })
     }
