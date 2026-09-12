@@ -52,7 +52,12 @@ passport.use(new DiscordStrategy({
 }));
 
 app.get("/api/guild", async (req, res) => {
-    const response = await fetch("https://api.wynncraft.com/v3/guild/Black%20Fangs");
+    const isMember = req.isAuthenticated() && req.user.hasRole;
+    const options = isMember ? {
+        headers: { 'Authorization': `Bearer ${process.env.WAPI_TOKEN}` }
+    }: undefined
+
+    const response = await fetch("https://api.wynncraft.com/v3/guild/Black%20Fangs", options);
 
     const guild = await response.json(); // this makes bro into a js object :O
 
@@ -61,11 +66,14 @@ app.get("/api/guild", async (req, res) => {
 
 app.get("/api/player/:username", async (req, res) => {
     const username = encodeURIComponent(req.params.username);
-    
-    const response = await fetch(`https://api.wynncraft.com/v3/player/${username}`)
+    const isMember = req.isAuthenticated() && req.user.hasRole;
 
+    const options = isMember ? {
+        headers: { 'Authorization': `Bearer ${process.env.WAPI_TOKEN}` }
+    } : undefined
+
+    const response = await fetch(`https://api.wynncraft.com/v3/player/${username}`, options);
     const player = await response.json();
-
     res.json(player);
 });
 

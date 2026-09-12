@@ -90,6 +90,7 @@ async function searchPlayer() {
 
         if (!response.ok) {
             playerResult.innerHTML = `<p>${player.error}</p>`;
+            return;
         }
 
         playerResult.innerHTML = `
