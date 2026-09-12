@@ -2,6 +2,8 @@ const usernameInput = document.getElementById("username");
 const searchButton = document.getElementById("search-button");
 const playerResult = document.getElementById("player-result");
 const searchForm = document.getElementById("search-form");
+const urlParams = new URLSearchParams(window.location.search);
+const urlUsername = urlParams.get("username");
 
 // please forgive me for this
 const colours = {
@@ -83,6 +85,8 @@ async function searchPlayer() {
         return;
     }
 
+    window.history.pushState({}, "", `player-info.html?username=${encodeURIComponent(username)}`);
+
     playerResult.innerHTML = "<p>Loading...</p>";
 
     try {
@@ -146,5 +150,10 @@ searchForm.addEventListener("submit", (event) => {
     if (username === "") {
         return;
     }
-    searchPlayer(username);
+    searchPlayer();
 });
+
+if (urlUsername) {
+    usernameInput.value = urlUsername;
+    searchPlayer();
+}

@@ -62,6 +62,10 @@ async function loadMembers() {
 
                 const card = document.createElement("div");
                 card.className = "member-card";
+
+                card.addEventListener("click", () => {
+                    window.location.href = `player-info.html?username=${encodeURIComponent(username)}`;
+                });
                 
                 const uuid = member.uuid;
                 const head = document.createElement("img");
