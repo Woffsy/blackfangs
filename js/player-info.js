@@ -44,23 +44,38 @@ function privacy(value) {
         : value;
 }
 
-function formatRank(rank) {
+function formatRank(rank, supportRank) {
     if (rank == null) return "";
-    if (!rank) return "N/A";
+    if (!rank || !supportRank) return "N/A";
 
-    const ranks = {
+    const supportRanks = {
         "null": "",
         "vip": "VIP",
         "vipplus": "VIP+",
         "hero": "HERO",
         "heroplus": "HERO+",
-        "champion": "CHAMPION",
-        "moderator": "MODERATOR",
-        "media": "MEDIA",
-        "admin": "ADMIN"
+        "champion": "CHAMPION"
     };
 
-    return ranks[rank.toLowerCase()] || rank;
+    const ranks = {
+        "Player": "",
+        "Media": "MEDIA",
+        "Moderator": "MODERATOR",
+        "Administrator": "ADMIN",
+        "Builder": "BUILDER",
+        "Game Master": "GAME MASTER",
+        "QA": "QA",
+        "Item": "ITEM",
+        "Music": "MUSIC",
+        "Art": "ART",
+        "Hybrid": "CT"
+    }
+
+    if (rank == "Player") {
+        return supportRanks[supportRank.toLowerCase()] || supportRank;
+    } else {
+        return ranks[rank] || rank;
+    }
 }
 
 function formatStars(star) {
@@ -77,6 +92,18 @@ function formatStars(star) {
     };
 
     return stars[star.toLowerCase()] || star;
+}
+
+function formatPlaytime(playtime) {
+    if (playtime == "N/A") return "N/A";
+    const days = Math.floor(playtime / 24);
+    const hours = Math.floor(playtime % 24);
+    return days.toString() + "d " + hours.toString() + "h (" + Math.floor(playtime).toString() + "h)";
+}
+
+function formatGuild(guild, rank, stars) {
+    if (!guild || !rank || !stars) return "No guild";
+    return `${privacy(rank)} ${formatStars(stars)} of ${privacy(guild)}`
 }
 
 async function searchPlayer() {
@@ -100,8 +127,8 @@ async function searchPlayer() {
 
         playerResult.innerHTML = `
             <div class="player-header">
-                <h2>${formatRank(player.supportRank)} ${privacy(player.username)}</h2>
-                <p>${privacy(player.guild?.rank)} ${formatStars(player.guild?.rankStars)} of ${privacy(player.guild?.name)}</p>
+                <h2>${formatRank(player.rank, player.supportRank)} ${privacy(player.username)}</h2>
+                <p>${formatGuild(player.guild?.name, player.guild?.rank, player.guild?.rankStars)}</p>
             </div>
             <div class="category-grid">
                 <div class="category-box">
@@ -123,7 +150,7 @@ async function searchPlayer() {
                 <div class="category-box">
                     <h2>General</h2>
                     <div class="category-list">
-                        <div class="entry">Playtime: ${privacy(player.playtime)}</div>
+                        <div class="entry">Playtime: ${formatPlaytime(privacy(player.playtime))}</div>
                         <div class="entry">Total Level: ${privacy(player.globalData?.totalLevel)}</div>
                         <div class="entry">Mobs Killed: ${privacy(player.globalData?.mobsKilled)}</div>
                         <div class="entry">Quests Completed: ${privacy(player.globalData?.completedQuests)}</div>
