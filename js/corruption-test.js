@@ -39,14 +39,12 @@ async function sendInactivityReport() {
     const reason = inactiveReason.value || "No reason provided";
     const notes = inactiveNotes.value || "No notes provided";
 
-    const messageContent = 
-        `{\n` +
-        `   username: ${discordName},\n` +
-        `   date: ${date},\n` +
-        `   reason: ${reason},\n` +
-        `   notes: ${notes}\n` +
-        `}`;
-    // const messageContent = `**Username** ${discordName}\n**Inactive Until** ${date}\n**Reason** ${reason}\n**Notes** ${notes}`;
+    const messageContent = {
+        username: discordName,
+        date: date,
+        reason: reason,
+        notes: notes
+    };
 
     const response = await fetch("/bot/sendmessage", {
         method: "POST",
