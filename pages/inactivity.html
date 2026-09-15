@@ -23,11 +23,43 @@
                 <a href="login.html">Log In</a>
             </nav>
         </header>
-        <main class="">
+        <main class="inactivity-page">
+            <h1>Inactivity Reporting</h1>
 
+            <form class="inactivity-form" id="inactivity-form">
+                <div class="form">
+                    <label for="inactive-until">Date Inactive Until (required)</label>
+                    <input type="date" id="inactive-until" name="inactiveUntil">
+                </div>
+
+                <div class="form">
+                    <label for="inactive-reason">Reason for Inactivity (required)</label>
+                    <select id="inactive-reason" name="inactiveReason">
+                        <option value="">Select a reason...</option>
+                        <option value="health">Illness / Injury</option>
+                        <option value="vacation">Vacation / Travel</option>
+                        <option value="burnout">Burnout / Break</option>
+                        <option value="exams">Exams / Studies / Work</option>
+                        <option value="equipment">Technology Issue</option>
+                        <option value="irl">IRL Issues</option>
+                        <option value="banned">Tempbanned from Wynn</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form">
+                    <label for="inactive-notes">Notes (optional)</label>
+                    <textarea id="inactive-notes" name="inactiveNotes" rows="4" placeholder="Additional info..."></textarea>
+                </div>
+
+                <div class="form">
+                    <button type="submit" class="submit-button">Submit Report</button>
+                </div>
+            </form>
         </main>
         <script src="../ensureMember.js"></script>
         <script src="../js/auth-status.js"></script>
         <script src="../js/hamburger.js"></script>
+        <script src="../js/corruption-test.js"></script>
     </body>
 </html>
