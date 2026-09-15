@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, ContainerBuilder, ComponentType, MessageFlags, TextDisplayBuilder } = require('discord.js');
 require("dotenv").config(); //this is to make it possible to load stuff from the .env file
 
 const discordTestServer = "1510326639521960006"
@@ -30,7 +30,20 @@ function ensureReady() {
 async function sendMessage(content) {
     await ensureReady();
     const channel = await client.channels.fetch(discordTestChannel)
-    await channel.send(content)
-}
+
+    const username = content.username
+    const date = content.date
+    const reason = content.reason
+    const notes = content.notes
+    
+    const container = new ContainerBuilder()
+        .addTextDisplayComponents(new TextDisplayBuilder().setContent("Inactivity Report: " + username))
+        .addSeparatorComponents(new SeparatorBuilder())
+        .addTextDisplayComponents(new TextDisplayBuilder().setContent(date))
+        .addTextDisplayComponents(new TextDisplayBuilder().setContent(reason))
+        .addTextDisplayComponents(new TextDisplayBuilder().setContent(notes))
+
+    await channel.send({ components: [container], flags: MessageFlags.IsComponentsV2 })
+ }
 
 module.exports = { sendMessage }
