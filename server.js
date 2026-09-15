@@ -37,6 +37,10 @@ app.get("/pages/corruption-test.html", ensureMember, (req, res) => {
     res.sendFile(__dirname+"/pages/corruption-test.html")
 })
 
+app.get("/pages/inactivity.html", ensureMember, (req, res) => {
+    res.sendFile(__dirname+"/pages/inactivity.html")
+})
+
 app.use(express.static("."));
 
 //give passport the strategy to use
