@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, ContainerBuilder, ComponentType, MessageFlags, TextDisplayBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, ContainerBuilder, ComponentType, MessageFlags, TextDisplayBuilder, SeparatorBuilder } = require('discord.js');
 require("dotenv").config(); //this is to make it possible to load stuff from the .env file
 
 const discordTestServer = "1510326639521960006"
