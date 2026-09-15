@@ -7,11 +7,15 @@ const passport = require("passport"); //this is a general authentication framewo
 const DiscordStrategy = require("passport-discord").Strategy; //this is to make discord login actually work
 
 const { checkUserRole } = require("./roleChecker"); //role checking bot code
-const { ensureMember } = require("./ensureMember"); 
+const { ensureMember } = require("./ensureMember");
+
+const { sendMessage } = require("./corruptionBot")
 
 
 const app = express(); // this is our server
 const PORT = 3000; // number for the funsies
+
+app.use(express.json()); //lets us read JSON bodies sent from fetch calls
 
 //this is to start up the part that handles sessions and login
 app.use(session({
@@ -28,6 +32,10 @@ app.use(passport.session());
 app.get("/pages/logged-in.html", ensureMember, (req, res) => {
     res.sendFile(__dirname+"/pages/logged-in.html");
 });
+
+app.get("/pages/corruption-test.html", ensureMember, (req, res) => {
+    res.sendFile(__dirname+"/pages/corruption-test.html")
+})
 
 app.use(express.static("."));
 
@@ -107,6 +115,15 @@ app.get("/api/me", (req, res) => {
         res.json({ loggedIn: true, username: req.user.username, hasRole: req.user.hasRole, serverDisplayName: req.user.serverDisplayName });
     } else {
         res.json({ loggedIn: false })
+    }
+})
+
+app.post("/bot/sendmessage", (req, res) => {
+    if (req.isAuthenticated()) {
+        sendMessage(req.body.content)
+        res.send("Message sent")
+    } else {
+        res.redirect("/")
     }
 })
 
