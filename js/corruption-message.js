@@ -1,33 +1,7 @@
-// const inputField = document.getElementById("MessageContent")
-// const searchButton = document.getElementById("search-button")
-// const searchForm = document.getElementById("search-form")
-// const sendStatus = document.getElementById("status")
-
 const inactiveUntil = document.getElementById("inactive-until");
 const inactiveReason = document.getElementById("inactive-reason");
 const inactiveNotes = document.getElementById("inactive-notes");
 const inactiveForm = document.getElementById("inactivity-form");
-
-// async function sendMessage() {
-//     const messageContent = inputField.value
-
-//     const response = await fetch("/bot/sendmessage", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ content: messageContent })
-//     })
-
-//     if (!response.ok) {
-//         console.error("Failed to send message:", response.status, await response.text())
-//     }
-// }
-
-// searchForm.addEventListener("submit", (event) => {
-//     sendStatus.innerHTML = "Pending" 
-//     event.preventDefault()
-//     sendMessage()
-//     sendStatus.innerHTML = "Sent"
-// });
 
 let discordName = null;
 fetch("/api/me").then(response => response.json()).then(user => {
@@ -59,5 +33,16 @@ async function sendInactivityReport() {
 
 inactiveForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    const dateRegex = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}$/;
+
+    if (!dateRegex.test(inactiveUntil.value.trim())) {
+        alert("Please enter a valid date in the fromat DD/MM/YYYY");
+        return;
+    }
+
+    if (!inactiveReason.value) {
+        alert("Please choose a reason.");
+        return;
+    }
     sendInactivityReport();
 });

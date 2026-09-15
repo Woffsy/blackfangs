@@ -90,6 +90,21 @@ body {
     display: none;
 }
 
+.footer {
+    width: 100%;
+    background: rgba(110, 43, 149, 0.85);
+    padding: 10px 0;
+    border-top: 2px solid #fff;
+    text-align: center;
+    z-index: 10;
+}
+
+.footer p {
+    margin-left: 20px;
+    color: #ddd;
+    font-size: 20px;
+}
+
 @media (max-width: 800px) {
     .navbar {
         padding: 0 20px;

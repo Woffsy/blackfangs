@@ -46,10 +46,10 @@ function privacy(value) {
 
 function formatRank(rank, supportRank) {
     if (rank == null) return "";
-    if (!rank || !supportRank) return "N/A";
+    if (!rank || !supportRank) return "";
 
     const supportRanks = {
-        "null": "",
+        "N/A": "",
         "vip": "VIP",
         "vipplus": "VIP+",
         "hero": "HERO",
@@ -102,7 +102,7 @@ function formatPlaytime(playtime) {
 }
 
 function formatGuild(guild, rank, stars) {
-    if (!guild || !rank || !stars) return "No guild";
+    if (!guild || !rank) return "No guild";
     return `${privacy(rank)} ${formatStars(stars)} of ${privacy(guild)}`
 }
 
